@@ -6,24 +6,34 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React,{useState} from 'react';
+import Loading from '../../src/components/Loading'
+
 export default function App() {
 
   const [name,setName]=useState("");
   const [lastName,setlastName]=useState("");
   const [result,setresult]=useState("");
+  const [isLoading, setisLoading] = useState(false)
+  
   return (
-    <View style={styles.container}>
-      <Text>Welcome {result}</Text>
+    <View style={styles.container}> // View container yapısı demek
 
-      <Text>Name</Text>
-      <TextInput placeholder='Enter Your Name' style={styles.textInputStyle} onChangeText={setName} value={name}/>
+    <Image source={require('../../assets/images/login.png')} style={styles.image} />
+      <Text style={styles.welcome}>Welcome {result}</Text>
 
-      <Text>Last Name</Text>
-      <TextInput placeholder='Enter Your Last Name' style={styles.textInputStyle} onChangeText={setlastName} value={lastName} />
+      <Text style={styles.text}>Email</Text>
+      <TextInput placeholder='Enter Your Email' style={styles.textInputStyle} onChangeText={setName} value={name}/>
 
-      <Pressable style={({pressed})=>[{backgroundColor:pressed?"gray":'blue'},styles.button]} onPress={()=>setresult(name+" "+lastName)}>
+      <Text style={styles.text}>Password</Text>
+      <TextInput secureTextEntry={true} placeholder='Enter Your Password' style={styles.textInputStyle} onChangeText={setlastName} value={lastName} />
+
+      <Pressable 
+      style={({pressed})=>[{backgroundColor:pressed?"gray":'blue'},styles.button]} 
+      onPress={()=>setisLoading(true)}> // pressable button
         <Text style={styles.buttonText}>Save</Text>
       </Pressable>
+
+      {isLoading ? <Loading changeIsLoading={()=>setisLoading(false)} /> : null}
     </View>
   );
 }
@@ -57,5 +67,18 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     color:'white'
 
+  },
+  image: {
+    width:200,
+    height:200
+
+  },
+  welcome:{
+    fontWeight:'bold',
+    fontSize:20,
+    margin:20
+  },
+  text:{
+    fontWeight:'bold'
   }
 });

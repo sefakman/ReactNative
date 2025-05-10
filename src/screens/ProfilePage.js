@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const SignupPage = () => {
+const ProfilePage = () => {
   return (
     <View style={styles.container}>
-      <Text>SignupPage</Text>
+      <Text>ProfilePage</Text>
     </View>
   )
 }
 
-export default SignupPage
+export default ProfilePage
 
 const styles = StyleSheet.create({
   container:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center'
-  }
+  flex:1,
+  justifyContent:'center',
+  alignItems:'center'
+}
 })

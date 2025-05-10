@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const SignupPage = () => {
+const Homepage = () => {
   return (
     <View style={styles.container}>
-      <Text>SignupPage</Text>
+      <Text>Homepage</Text>
     </View>
   )
 }
 
-export default SignupPage
+export default Homepage
 
 const styles = StyleSheet.create({
   container:{

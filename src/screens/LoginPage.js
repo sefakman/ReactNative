@@ -30,13 +30,13 @@ const LoginPage = ({navigation})=> {
       <Pressable 
       style={({pressed})=>[{backgroundColor:pressed?"gray":'blue'},styles.button]} 
       onPress={()=>setisLoading(true)}> // pressable button
-        <Text style={styles.buttonText}>Save</Text>
+        <Text style={styles.buttonText}>Login</Text>
       </Pressable>
 
       <Pressable 
       style={({pressed})=>[{backgroundColor:pressed?"gray":'lightgrey',marginTop:50},styles.signupButton]} 
       onPress={()=>navigation.navigate('Signup')}> 
-        <Text style={styles.buttonText}>Save</Text>
+        <Text style={styles.buttonText}>SignUp</Text>
       </Pressable>
       {isLoading ? <Loading changeIsLoading={()=>setisLoading(false)} /> : null}
     </View>

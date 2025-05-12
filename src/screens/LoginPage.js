@@ -1,96 +1,107 @@
-import { Image, StyleSheet, Platform, View,Text,TextInput, Pressable } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  Text,
+  TextInput,
+  Pressable,
+} from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import React,{useState} from 'react';
-import Loading from '../components/Loading'
+import { HelloWave } from "@/components/HelloWave";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
+import { LoadingPage, CustomTextInput,CustomButton } from "../components";
 
-const LoginPage = ({navigation})=> {
+const LoginPage = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [result, setresult] = useState("");
+  const [isLoading, setisLoading] = useState(false);
 
-  const [name,setName]=useState("");
-  const [lastName,setlastName]=useState("");
-  const [result,setresult]=useState("");
-  const [isLoading, setisLoading] = useState(false)
-  
   return (
-    <View style={styles.container}> // View container yapısı demek
+    <View style={styles.container}>
+            <Text style={styles.welcome}>Welcome {result}</Text>
 
-    <Image source={require('../../assets/images/login.png')} style={styles.image} />
-      <Text style={styles.welcome}>Welcome {result}</Text>
+      {/* View container yapısı demek */}
+      <Image
+        source={require("../../assets/images/login.png")}
+        style={styles.image}
+      />
+      <CustomTextInput
+        title="Email"
+        isSecureText={false}
+        handleOnChangeText={setEmail}
+        handleValue={email}
+        handlePlaceHolder='Enter Your Email'
+      />
+      <CustomTextInput
+        title="Password"
+        isSecureText={true}
+        handleOnChangeText={setPassword}
+        handleValue={password}
+        handlePlaceHolder='Enter Your Password'
 
-      <Text style={styles.text}>Email</Text>
-      <TextInput placeholder='Enter Your Email' style={styles.textInputStyle} onChangeText={setName} value={name}/>
+      />
 
-      <Text style={styles.text}>Password</Text>
-      <TextInput secureTextEntry={true} placeholder='Enter Your Password' style={styles.textInputStyle} onChangeText={setlastName} value={lastName} />
+      <CustomButton
+      buttonText='Login'
+      setWidth='50%'
+      handleonPress={() => setisLoading(true)}
+      buttonColor='blue'
+      pressedButtoncolor='gray'
+      buttonColorText='white'
+      />
+     
+     <CustomButton
+      buttonText='SignUp'
+      setWidth='30%'
+      handleonPress={() => navigation.navigate("Signup")}
+      buttonColor='#fed32b'
+      pressedButtoncolor='lightgray'
+      buttonColorText='black'
 
-      <Pressable 
-      style={({pressed})=>[{backgroundColor:pressed?"gray":'blue'},styles.button]} 
-      onPress={()=>setisLoading(true)}> // pressable button
-        <Text style={styles.buttonText}>Login</Text>
-      </Pressable>
+      />
 
-      <Pressable 
-      style={({pressed})=>[{backgroundColor:pressed?"gray":'lightgrey',marginTop:50},styles.signupButton]} 
-      onPress={()=>navigation.navigate('Signup')}> 
-        <Text style={styles.buttonText}>SignUp</Text>
-      </Pressable>
-      {isLoading ? <Loading changeIsLoading={()=>setisLoading(false)} /> : null}
+
+      
+      {isLoading ? (
+        <LoadingPage changeIsLoading={() => setisLoading(false)} />
+      ) : null}
     </View>
   );
-}
+};
 export default LoginPage;
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    backgroundColor:'#fff',
-    alignItems:'center',
-    justifyContent:'center'
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  textInputStyle: {
-    borderWidth:1,
-    width:'80%',
-    height:50,
-    borderRadius:10,
-    marginVertical:10,
-    textAlign:'center',
-    color:'blue',
-    fontWeight:'bold'
-  },
-  button: {
-    width:'80%',
-    height:50,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center',
-
-  },
-  buttonText: {
-    fontWeight:'bold',
-    color:'white'
-
-  },
+ 
   image: {
-    width:200,
-    height:200
-
+    width: 200,
+    height: 200,
+    marginBottom:30
   },
-  welcome:{
-    fontWeight:'bold',
-    fontSize:20,
-    margin:20
+  welcome: {
+    fontWeight: "bold",
+    fontSize: 20,
+    margin: 20,
   },
-  text:{
-    fontWeight:'bold'
+  text: {
+    fontWeight: "bold",
   },
-  signupButton:{
-    width:'30%',
-    height:50,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center',
-  }
+  signupButton: {
+    width: "30%",
+    height: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+ 
 });

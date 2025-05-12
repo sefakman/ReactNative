@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,ActivityIndicator,Pressable } from 'react-native'
 import React from 'react'
 
-const Loading = ({changeIsLoading}) => {
+const LoadingPage = ({changeIsLoading}) => {
   return (
     <View style={styles.container}>
         <Pressable 
@@ -15,7 +15,7 @@ const Loading = ({changeIsLoading}) => {
   )
 }
 
-export default Loading
+export default LoadingPage
 
 const styles = StyleSheet.create({
     container:{

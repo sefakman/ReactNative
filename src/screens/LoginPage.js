@@ -8,23 +8,32 @@ import {
   Pressable,
 } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import React, { useState } from "react";
 import { LoadingPage, CustomTextInput,CustomButton } from "../components";
+import { useSelector,useDispatch } from "react-redux";
+import { setEmail,setPassword,setIsLoading,setLogin } from "../redux/userSlice";
+import { login } from "../redux/userSlice";
 
 const LoginPage = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [result, setresult] = useState("");
-  const [isLoading, setisLoading] = useState(false);
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [isLoading, setisLoading] = useState(false);
+
+
+// userSlice içerisindeki verilerin okunması
+const { email,password,isLoading}=useSelector((state)=>state.user)
+
+// userSlice içerisindeki reducer yapılarını kullanma veya geri döndürme
+const dispatch=useDispatch();
+
+
+// yukarıda obje halinde alındı ama tek almak da mümkün
+// const{email}=useSelector((state)=>state.user.email)
 
   return (
     <View style={styles.container}>
-            <Text style={styles.welcome}>Welcome {result}</Text>
+            <Text style={styles.welcome}>Welcome</Text>
 
       {/* View container yapısı demek */}
       <Image
@@ -34,14 +43,14 @@ const LoginPage = ({ navigation }) => {
       <CustomTextInput
         title="Email"
         isSecureText={false}
-        handleOnChangeText={setEmail}
+        handleOnChangeText={(text)=>dispatch(setEmail(text))}
         handleValue={email}
         handlePlaceHolder='Enter Your Email'
       />
       <CustomTextInput
         title="Password"
         isSecureText={true}
-        handleOnChangeText={setPassword}
+        handleOnChangeText={(password)=>dispatch(setPassword(password))}
         handleValue={password}
         handlePlaceHolder='Enter Your Password'
 
@@ -50,7 +59,7 @@ const LoginPage = ({ navigation }) => {
       <CustomButton
       buttonText='Login'
       setWidth='50%'
-      handleonPress={() => setisLoading(true)}
+      handleonPress={()=>dispatch(login({email,password}))}
       buttonColor='blue'
       pressedButtoncolor='gray'
       buttonColorText='white'
@@ -69,7 +78,7 @@ const LoginPage = ({ navigation }) => {
 
       
       {isLoading ? (
-        <LoadingPage changeIsLoading={() => setisLoading(false)} />
+        <LoadingPage changeIsLoading={()=>dispatch(setIsLoading(false))} />
       ) : null}
     </View>
   );

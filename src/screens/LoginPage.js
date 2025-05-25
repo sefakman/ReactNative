@@ -12,17 +12,17 @@ import {
 import React, { useState } from "react";
 import { LoadingPage, CustomTextInput,CustomButton } from "../components";
 import { useSelector,useDispatch } from "react-redux";
-import { setEmail,setPassword,setIsLoading,setLogin } from "../redux/userSlice";
+import { setIsLoading } from "../redux/userSlice";
 import { login } from "../redux/userSlice";
 
 const LoginPage = ({ navigation }) => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   // const [isLoading, setisLoading] = useState(false);
 
 
 // userSlice içerisindeki verilerin okunması
-const { email,password,isLoading}=useSelector((state)=>state.user)
+const { isLoading}=useSelector((state)=>state.user)
 
 // userSlice içerisindeki reducer yapılarını kullanma veya geri döndürme
 const dispatch=useDispatch();
@@ -43,14 +43,14 @@ const dispatch=useDispatch();
       <CustomTextInput
         title="Email"
         isSecureText={false}
-        handleOnChangeText={(text)=>dispatch(setEmail(text))}
+        handleOnChangeText={(text)=>setEmail(text)}
         handleValue={email}
         handlePlaceHolder='Enter Your Email'
       />
       <CustomTextInput
         title="Password"
         isSecureText={true}
-        handleOnChangeText={(password)=>dispatch(setPassword(password))}
+        handleOnChangeText={(password)=>setPassword(password)}
         handleValue={password}
         handlePlaceHolder='Enter Your Password'
 
